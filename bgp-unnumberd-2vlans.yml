@@ -1,0 +1,33 @@
+- name: wipe config on all switches
+  hosts: all
+
+  tasks:
+  - name: wipe config on all switches
+    nclu:
+      atomic: true
+      commands:
+      - del all
+
+- name: Configure spine switch
+  hosts: 172.16.255.101
+
+  tasks: configure spine switch
+  nclu:
+    atomic: true
+    commands:
+    - del all
+
+- name: configure leaf switches
+  hosts: 172.16.255.111,172.16.255.112
+
+  tasks: configure leaf switches
+  nclu:
+    atomic: true
+    commands:
+    - del all
+
+
+
+
+
+

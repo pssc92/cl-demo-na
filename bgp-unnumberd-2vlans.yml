@@ -16,7 +16,10 @@
     nclu:
       atomic: true
       commands:
-      - del all
+      - add bgp router-id {{ spine_rid }}
+      - add bgp autonomous-system {{ spine_as }}
+      - add bgp neighbor swp1 remote-as external
+      - add bgp neighbor swp2 remote-as external
 
 - name: configure leaf switches
   hosts: 172.16.255.111,172.16.255.112
@@ -26,7 +29,13 @@
     nclu: 
       atomic: true
       commands:
-      - del all
+      - add interface swp3 ip address {{ item.ip }}
+      - add bgp router-id {{ item.router-id }}
+      - add bgp autonomous-system {{ item.as-number }}
+      - add bgp neighbor swp1 remote-as external
+    loop:
+      - { router-id: {{ leaf01_rid }}, as-number: {{ leaf01_as }}, network: {{ leaf01_network }}, ip: {{ leaf01_ip }}, {{ leaf01_swp }} }
+      - { router-id: {{ leaf02_rid }}, as-number: {{ leaf02_as }}, network: {{ leaf02_network }}, ip: {{ leaf02_ip }}, {{ leaf02_swp }} }
 
 
 

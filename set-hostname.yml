@@ -1,5 +1,10 @@
-- name: Modify hostname to Cumulus-1 and commit the change
-  nclu:
-    commands:
-        - add hostname cumulus
-    commit: true
+- name: Configure CLAG on Leaf01 and Leaf02 Switches
+  hosts: all
+
+  tasks:
+  - name: Set hostnames
+    nclu:
+        commit: true
+        description: "Set hostnames"
+        commands:
+            - add hostname test-leaf01

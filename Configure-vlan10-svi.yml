@@ -1,0 +1,24 @@
+- name: Configure 2 vlans and svi's
+  hosts: all
+
+  tasks:
+  - name: Configure bridge with vlan 10 and 20
+    nclu:
+        commit: false
+        description: "configure vlan 10 and 20 on a vlan aware bridge"
+        commands:
+            - add bridge bridge vids 10,20
+
+  - name: configure vlan {{ vlanid_1 }} svi
+    nclu:
+      commit: false
+      description: "configure svi for 1st vlan"
+      commands:
+        - add vlan {{ vlanid_1 }} ip address {{ ip_1 }}
+  
+  - name: configure vlan {{ vlanid_2 }} svi
+    nclu:
+      commit: true
+      description: "configure svi for 2nd vlan"
+      commands:
+        - add vlan {{ vlanid_2 }} ip address {{ ip_2 }}

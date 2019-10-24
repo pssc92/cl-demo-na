@@ -1,6 +1,0 @@
----
-- name: Modify hostname to Cumulus-1 and commit the change
-  nclu:
-    commands:
-        - add hostname cumulus
-    commit: true

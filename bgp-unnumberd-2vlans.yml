@@ -34,8 +34,8 @@
       - add bgp autonomous-system {{ item.as-number }}
       - add bgp neighbor swp1 remote-as external
     loop:
-      - { router-id: {{ leaf01_rid }}, as-number: {{ leaf01_as }}, network: {{ leaf01_network }}, ip: {{ leaf01_ip }}, swp: {{ leaf01_swp }} }
-      - { router-id: {{ leaf02_rid }}, as-number: {{ leaf02_as }}, network: {{ leaf02_network }}, ip: {{ leaf02_ip }}, swp: {{ leaf02_swp }} }
+      - { router-id: "{{ leaf01_rid }}", as-number: "{{ leaf01_as }}", network: "{{ leaf01_network }}", ip: "{{ leaf01_ip }}", swp: "{{ leaf01_swp }}" }
+      - { router-id: "{{ leaf02_rid }}", as-number: "{{ leaf02_as }}", network: "{{ leaf02_network }}", ip: "{{ leaf02_ip }}", swp: "{{ leaf02_swp }}" }
 
 
 

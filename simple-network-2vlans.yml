@@ -2,6 +2,12 @@
   hosts: all
 
   tasks:
+  - name: reset switch config
+    nclu:
+      atomic: true
+      commands:
+        - del all
+        
   - name: Configure bridge with vlan 10 and 20
     nclu:
         commit: false

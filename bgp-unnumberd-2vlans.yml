@@ -1,18 +1,18 @@
 - name: wipe config on all switches
   hosts: all
 
-#  tasks:
-#  - name: wipe config on all switches
-#    nclu:
-#      atomic: true
-#      commands:
-#      - del all
+  tasks:
+  - name: wipe config on all switches
+    nclu:
+      atomic: true
+      commands:
+      - del all
 
-- name: Configure spine switch
+- name: Configure spine01
   hosts: 172.16.255.101
 
   tasks: 
-  - name: configure spine switch
+  - name: Configure spine switch
     nclu:
       atomic: true
       commands:
@@ -21,22 +21,33 @@
       - add bgp neighbor swp1 remote-as external
       - add bgp neighbor swp2 remote-as external
 
-- name: configure leaf switches
-  hosts: 172.16.255.111,172.16.255.112
+- name: Configure leaf01
+  hosts: 172.16.255.111
 
   tasks: 
-  - name: configure leaf switches
+  - name: Configure leaf switches
     nclu: 
       atomic: true
       commands:
-      - add interface {{ item.swp }} ip address {{ item.ip }}
-      - add bgp autonomous-system {{ item.as-number }}
-      - add bgp router-id {{ item.router-id }}
+      - add interface {{ leaf01_swp }} ip address {{ leaf01_ip }}
+      - add bgp autonomous-system {{ leaf01_as }}
+      - add bgp router-id {{ leaf01_rid }}
       - add bgp neighbor swp1 remote-as external
-      - add bgp network {{ item.network }}
-    loop:
-    - { router-id: "{{ leaf01_rid }}", as-number: "{{ leaf01_as }}", network: "{{ leaf01_network }}", ip: "{{ leaf01_ip }}", swp: "{{ leaf01_swp }}" }
-    - { router-id: "{{ leaf02_rid }}", as-number: "{{ leaf02_as }}", network: "{{ leaf02_network }}", ip: "{{ leaf02_ip }}", swp: "{{ leaf02_swp }}" }
+      - add bgp network {{ leaf01_network }}
+
+- name: Configure leaf02
+  hosts: 172.16.255.112
+
+  tasks: 
+  - name: Configure leaf02
+    nclu: 
+      atomic: true
+      commands:
+      - add interface {{ leaf02_swp }} ip address {{ leaf02_ip }}
+      - add bgp autonomous-system {{ leaf02_as }}
+      - add bgp router-id {{ leaf02_rid }}
+      - add bgp neighbor swp1 remote-as external
+      - add bgp network {{ leaf02_network }}
 
 
 

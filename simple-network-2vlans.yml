@@ -33,5 +33,5 @@
     nclu:
       commit: true
       commands:
-        - add interface swp1 bridge access {{ vlanid_1 }}
-        - add interface swp2 bridge access {{ vlanid_2 }}
+        - add interface swp3 bridge access {{ vlanid_1 }}
+        - add interface swp4 bridge access {{ vlanid_2 }}

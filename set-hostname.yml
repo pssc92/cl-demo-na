@@ -1,4 +1,4 @@
-- name: Configure CLAG on Leaf01 and Leaf02 Switches
+- name: Configure hostname on switch
   hosts: all
 
   tasks:
@@ -7,4 +7,4 @@
         commit: true
         description: "Set hostnames"
         commands:
-            - add hostname test-leaf01
+            - add hostname {{ hostname }}

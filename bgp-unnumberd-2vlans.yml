@@ -16,8 +16,8 @@
     nclu:
       atomic: true
       commands:
-      - add bgp router-id {{ spine_rid }}
       - add bgp autonomous-system {{ spine_as }}
+      - add bgp router-id {{ spine_rid }}
       - add bgp neighbor swp1 remote-as external
       - add bgp neighbor swp2 remote-as external
 
@@ -30,8 +30,8 @@
       atomic: true
       commands:
       - add interface {{ item.swp }} ip address {{ item.ip }}
-      - add bgp router-id {{ item.router-id }}
       - add bgp autonomous-system {{ item.as-number }}
+      - add bgp router-id {{ item.router-id }}
       - add bgp neighbor swp1 remote-as external
     loop:
       - { router-id: "{{ leaf01_rid }}", as-number: "{{ leaf01_as }}", network: "{{ leaf01_network }}", ip: "{{ leaf01_ip }}", swp: "{{ leaf01_swp }}" }

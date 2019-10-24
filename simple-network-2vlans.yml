@@ -7,13 +7,13 @@
       atomic: true
       commands:
         - del all
-        
+
   - name: Configure bridge with vlan 10 and 20
     nclu:
         commit: false
         description: "configure vlan 10 and 20 on a vlan aware bridge"
         commands:
-            - add bridge bridge vids 10,20
+            - add bridge bridge vids {{ vlanid_1 }},{{ vlanid_2 }}
 
   - name: configure vlan {{ vlanid_1 }} svi
     nclu:
@@ -24,7 +24,14 @@
   
   - name: configure vlan {{ vlanid_2 }} svi
     nclu:
-      commit: true
+      commit: false
       description: "configure svi for 2nd vlan"
       commands:
         - add vlan {{ vlanid_2 }} ip address {{ ip_2 }}
+
+  - name: configure access ports for vpc's
+    nclu:
+      commit: true
+      commands:
+        - add interface swp1 bridge access {{ vlanid_1 }}
+        - add interface swp2 bridge access {{ vlanid_2 }}
